@@ -418,8 +418,7 @@ export function GameScreen() {
             <View style={[styles.grid, { gap }]}>
               {Array.from({ length: totalCells }).map((_, i) => {
                 const isWrong = wrongIndexes.includes(i);
-                const isCorrectSelected = roundWon && i === uniqueIndex;
-                const revealCorrect = !roundWon && step === 'round_result' && i === uniqueIndex;
+                const isCorrectSelected = selected === i && i === uniqueIndex;
 
                 return (
                   <TouchableOpacity
@@ -432,9 +431,8 @@ export function GameScreen() {
                         borderRadius: isVerySmall ? 10 : 12,
                         backgroundColor: palette.pink,
                         opacity: isWrong ? 0.4 : 1,
-                        borderWidth: isCorrectSelected || revealCorrect ? 2 : 0,
-                        borderColor:
-                          isCorrectSelected || revealCorrect ? palette.success : 'transparent',
+                        borderWidth: isCorrectSelected ? 2 : 0,
+                        borderColor: isCorrectSelected ? palette.success : 'transparent',
                       },
                     ]}
                     onPress={() => handleCellPress(i)}
